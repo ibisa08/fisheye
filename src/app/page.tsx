@@ -1,66 +1,72 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+export const runtime = "nodejs";
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.css";
+import { getAllPhotographers } from "./lib/prisma-db";
+
+export default async function Home() {
+  const photographers = await getAllPhotographers();
+  const mockupOrder = [243, 930, 82, 527, 925, 195];
+  const orderIndex = new Map(mockupOrder.map((id, i) => [id, i]));
+  const sortedPhotographers = [...photographers].sort(
+    (a, b) => (orderIndex.get(a.id) ?? 999) - (orderIndex.get(b.id) ?? 999)
+  );
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className={styles.page}>
+      <header className={styles.header}>
+        <Link href="/" className={styles.logo} aria-label="Accueil FishEye">
+          <Image
+            src="/logo.svg"
+            alt="FishEye"
+            width={200}
+            height={50}
+            className={styles.logoImg}
+            priority
+            unoptimized
+          />
+        </Link>
+
+        <h1 className={styles.title}>Nos photographes</h1>
+      </header>
+
+      <section aria-label="Liste des photographes">
+        <ul className={styles.grid}>
+          {sortedPhotographers.map((p) => {
+            const location = `${p.city}, ${p.country}`;
+            const portraitSrc = `/assets/${p.portrait}`;
+
+            return (
+              <li key={p.id} className={styles.card}>
+                <article>
+                  <Link
+                    href={`/photographer/${p.id}`}
+                    className={styles.cardLink}
+                    aria-label={`Voir le profil de ${p.name}`}
+                  >
+                    <div className={styles.avatarWrap}>
+                      <Image
+                        src={portraitSrc}
+                        alt={p.name}
+                        width={200}
+                        height={200}
+                        className={styles.avatar}
+                        priority
+                      />
+                    </div>
+                    <h2 className={styles.name}>{p.name}</h2>
+                  </Link>
+
+                  <p className={styles.location}>{location}</p>
+                  <p className={styles.tagline}>{p.tagline}</p>
+                  <p className={styles.price}>{p.price}€/jour</p>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    </main>
   );
 }
