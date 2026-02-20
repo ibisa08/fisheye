@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FishEye (Next.js + Prisma/SQLite)
 
-## Getting Started
+## ✨ Fonctionnalités
 
-First, run the development server:
+- **Page d’accueil** : liste des photographes.
+- **Page photographe** : profil + galerie médias.
+- **Tri** des médias : Popularité / Date / Titre (menu custom accessible clavier).
+- **Likes interactifs** : mise à jour UI immédiate + persistance en base (API Next).
+- **Lightbox** : ouverture d’un média en grand, navigation clavier (←/→), fermeture (ESC / clic overlay / bouton).
+- **Formulaire de contact** : modale accessible (focus, ESC, clic overlay).
+
+## 🧰 Stack technique
+
+- **Next.js (App Router)** + **React**
+- **TypeScript**
+- **Prisma ORM**
+- **SQLite** (base locale)
+
+## ✅ Prérequis
+
+- **Node.js 20+** (recommandé)
+- npm
+
+## 🚀 Installation
+
+```bash
+npm install
+```
+
+## 🗄️ Base de données (Prisma / SQLite)
+
+### 1) Migrations (création de la DB)
+
+```bash
+npm run db:migrate
+```
+
+### 2) Seed (remplir la DB avec les données de `data/`)
+
+```bash
+npm run db:seed
+```
+
+### 3) Prisma Studio (visualiser la DB)
+
+```bash
+npm run db:studio
+```
+
+## ▶️ Lancer l’application
+
+### Mode développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Puis ouvrir :
+- http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build / production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 🧪 Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ♿ Accessibilité (points clés)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Navigation clavier** : Tab / Shift+Tab, flèches dans les menus, ESC pour fermer les modales.
+- **Modales** : `role="dialog"`, `aria-modal`, focus management.
+- **Images** : attributs `alt`.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Licence
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
