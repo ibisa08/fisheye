@@ -68,7 +68,6 @@ export function MediaGallery({
   const openMenu = () => {
     setActiveIndex(0);
     setOpen(true);
-    // Ensure focus moves into the menu (so Arrow keys work reliably)
     setTimeout(() => {
       optionRefs.current[0]?.focus();
     }, 0);
@@ -84,7 +83,6 @@ export function MediaGallery({
     closeMenu();
   };
 
-  // Click outside
   useEffect(() => {
     if (!open) return;
     const onDocMouseDown = (e: MouseEvent) => {
@@ -95,7 +93,6 @@ export function MediaGallery({
     return () => document.removeEventListener("mousedown", onDocMouseDown);
   }, [open]);
 
-  // Focus active option on open
   useEffect(() => {
     if (!open) return;
     optionRefs.current[activeIndex]?.focus();
@@ -107,7 +104,6 @@ export function MediaGallery({
 
   const setActiveAndFocus = (idx: number) => {
     setActiveIndex(idx);
-    // Focus immediately to make the change visible even if the effect is delayed
     focusOption(idx);
   };
 
@@ -123,7 +119,6 @@ export function MediaGallery({
   };
 
   const onListKeyDown = (e: React.KeyboardEvent) => {
-    // Let Tab move to the next focusable element, but close the menu first
     if (e.key === "Tab") {
       setOpen(false);
       return;
@@ -193,13 +188,10 @@ export function MediaGallery({
       });
       if (!res.ok) throw new Error("like failed");
       const data = await res.json();
-
-      // Sync UI avec la DB
       setItems((prev) =>
         prev.map((m) => (m.id === mediaId ? { ...m, likes: data.likes } : m))
       );
     } catch {
-      // rollback
       setLiked((prev) => ({ ...prev, [mediaId]: alreadyLiked }));
       setItems((prev) =>
         prev.map((m) => (m.id === mediaId ? { ...m, likes: prevLikes } : m))
@@ -225,7 +217,6 @@ export function MediaGallery({
 
   return (
     <section aria-label={`Galerie de ${photographerName}`}>
-      {/* Filtre */}
       <div className={styles.toolbar}>
         <span className={styles.sortLabel}>Trier par</span>
 
@@ -279,10 +270,8 @@ export function MediaGallery({
         </div>
       </div>
 
-      {/* Grille médias */}
       <ul className={styles.grid}>
         {sorted.map((m) => {
-          // Limite pro: trim des noms de fichiers (espaces)
           const file = (m.image ?? m.video ?? "").trim();
           const src = file ? `/assets/${file}` : "";
 
@@ -292,7 +281,6 @@ export function MediaGallery({
           return (
             <li key={m.id} className={styles.card}>
               <article>
-                {/* Vignette -> ouvre lightbox */}
                 <button
                   type="button"
                   className={styles.thumbBtn}
@@ -322,7 +310,6 @@ export function MediaGallery({
                 </button>
 
                 <div className={styles.meta}>
-                  {/* Titre -> ouvre lightbox */}
                   <button
                     type="button"
                     className={styles.titleBtn}
@@ -335,7 +322,6 @@ export function MediaGallery({
                     {m.title}
                   </button>
 
-                  {/* Like */}
                   <button
                     type="button"
                     className={styles.likeBtn}
@@ -353,7 +339,6 @@ export function MediaGallery({
         })}
       </ul>
 
-      {/* Lightbox */}
       {lightboxState && (
         <Lightbox
           items={lightboxState.items}

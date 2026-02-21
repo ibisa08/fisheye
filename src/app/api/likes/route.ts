@@ -11,7 +11,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Bad request" }, { status: 400 });
   }
 
-  // Transaction: read current likes, clamp, then update
   const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     const current = await tx.media.findUnique({
       where: { id: mediaId },
@@ -20,7 +19,6 @@ export async function POST(req: Request) {
 
     if (!current) return null;
 
-    // clamp current likes (in case DB contains negative)
     const baseLikes = Math.max(0, current.likes ?? 0);
     const nextLikes = Math.max(0, baseLikes + delta);
 

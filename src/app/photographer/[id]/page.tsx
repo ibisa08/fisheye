@@ -21,7 +21,6 @@ export default async function PhotographerPage({
   const { id: idParam } = await params;
   const id = Number(idParam);
 
-  // Cas: ID invalide -> proposer des IDs existants
   if (Number.isNaN(id)) {
     const all = await getAllPhotographers();
     return (
@@ -48,7 +47,6 @@ export default async function PhotographerPage({
 
   const photographer = await getPhotographer(id);
 
-  // Cas: photographe introuvable -> proposer des IDs existants
   if (!photographer) {
     const all = await getAllPhotographers();
     return (
@@ -78,7 +76,6 @@ export default async function PhotographerPage({
 
   const medias = await getAllMediasForPhotographer(id);
 
-  // Total likes initial (le sticky dynamique se met ensuite à jour côté client)
   const totalLikes = medias.reduce(
     (sum: number, m: { likes: number | null }) => sum + (m.likes ?? 0),
     0

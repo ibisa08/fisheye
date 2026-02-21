@@ -134,7 +134,6 @@ export function Lightbox({
           ) : isVideo ? (
             <video className={styles.media} src={src} controls />
           ) : (
-            // Use plain <img> to avoid Next Image optimizer 400 in lightbox
             <img className={styles.media} src={src} alt={current.title} />
           )}
 

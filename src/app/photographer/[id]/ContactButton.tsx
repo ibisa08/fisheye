@@ -25,7 +25,6 @@ export function ContactButton({ photographerName }: { photographerName: string }
     openerRef.current?.focus?.();
   };
 
-  // Focus + trap minimal + ESC + scroll lock
   useEffect(() => {
     if (!open) return;
 

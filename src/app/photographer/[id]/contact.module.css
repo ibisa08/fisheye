@@ -22,7 +22,7 @@
     z-index: 9999;
   }
   
-  /* Modal panel (Figma: 669x900, radius 5, shadow -5/10/30 @ 25%) */
+  /* Modal panel */
   .modal {
     width: 669px;
     height: 900px;
@@ -131,7 +131,7 @@
     cursor: pointer;
   }
   
-  /* Visible keyboard focus (important for soutenance) */
+  /* Visible keyboard focus  */
   .cta:focus-visible,
   .close:focus-visible,
   .input:focus-visible,

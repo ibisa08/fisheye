@@ -15,7 +15,6 @@
   position: relative;
 }
 
-/* Bouton fermé */
 .selectBtn {
   width: 170px;
   height: 40px;
@@ -33,7 +32,6 @@
   margin-bottom: 10px;
 }
 
-/* When open: square bottom corners + white separator under the button (between button and menu) */
 .selectBtn[aria-expanded="true"] {
   border-radius: 5px 5px 0 0;
   border-bottom: 1px solid #ffffff;
@@ -43,7 +41,6 @@
   display: inline-block;
 }
 
-/* Chevron */
 .chevron {
   display: inline-flex;
   align-items: center;
@@ -51,7 +48,7 @@
   width: 16px;
   height: 16px;
   margin-left: 8px;
-  font-size: 0; /* hide the ▾/▴ character */
+  font-size: 0; 
 }
 
 .chevron::before {
@@ -60,16 +57,16 @@
   height: 8px;
   border-right: 2px solid #ffffff;
   border-bottom: 2px solid #ffffff;
-  transform: rotate(45deg); /* down */
+  transform: rotate(45deg); 
 }
 
 .selectBtn[aria-expanded="true"] .chevron::before {
-  transform: rotate(-135deg); /* up */
+  transform: rotate(-135deg);
 }
 
 .menu {
   position: absolute;
-  top: 40px; /* hauteur du bouton */
+  top: 40px;
   left: 0;
   width: 170px;
   height: auto;
@@ -101,7 +98,7 @@
 }
 
 .option {
-  height: 43px;              /* ✅ hauteur proche Figma */
+  height: 43px;             
   display: flex;
   align-items: center;
   color: #fff;
@@ -112,13 +109,11 @@
   background: transparent;
 }
 
-/* Visible keyboard focus (so you can SEE which option is selected with ↑/↓) */
 .option:focus-visible {
   outline: 2px solid #4aa3ff; /* blue ring */
   outline-offset: -2px;
 }
 
-/* Active option highlight (used by MediaGallery when you move with arrows) */
 .optionActive,
 .option:hover {
   background: rgba(255, 255, 255, 0.12);
@@ -136,7 +131,6 @@
 }
 
 
-/* ===== Grid médias (ta base) ===== */
 .grid {
   list-style: none;
   padding: 0;
@@ -199,7 +193,6 @@
   background: #eee;
 }
 
-/* Ligne titre + likes */
 .meta {
   margin-top: 0;
   padding-top: 10px;
