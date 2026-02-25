@@ -132,7 +132,15 @@ export function Lightbox({
               Média introuvable (nom de fichier manquant ou incorrect).
             </p>
           ) : isVideo ? (
-            <video className={styles.media} src={src} controls />
+            <video
+                className={styles.media}
+                src={src}
+                controls
+                aria-label={`Vidéo : ${current.title}`}
+                title={current.title}
+                preload="metadata"
+                playsInline
+            />
           ) : (
             <img className={styles.media} src={src} alt={current.title} />
           )}

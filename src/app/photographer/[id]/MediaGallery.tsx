@@ -292,7 +292,15 @@ export function MediaGallery({
                 >
                   {m.video ? (
                     src ? (
-                      <video className={styles.thumb} src={src} />
+                      <video
+                        className={styles.thumb}
+                        src={src}
+                        aria-label={`Aperçu vidéo : ${m.title}`}
+                        title={m.title}
+                        preload="metadata"
+                        muted
+                        playsInline
+                      />
                     ) : (
                       <div style={{ height: 300, background: "#eee" }} />
                     )
